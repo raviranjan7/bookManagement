@@ -1,11 +1,10 @@
 package com.ravi.test.data.model;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-import javax.persistence.*;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.persistence.*;
+
 @Getter
 @Setter
 @Slf4j
@@ -30,6 +29,18 @@ public class Book {
     @Column(name = "availability_status", nullable = false)
     private String availabilityStatus;
 
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
+
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    public Long getSid() {
+        return sid;
+    }
+
     public Book(String bookId, String name, String category, long quantity, String availabilityStatus) {
         this.bookId = bookId;
         this.name = name;
@@ -37,4 +48,5 @@ public class Book {
         this.quantity = quantity;
         this.availabilityStatus = availabilityStatus;
     }
+
 }

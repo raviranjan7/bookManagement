@@ -13,9 +13,8 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
     public void updateBook(String bookId, BookRequest bookRequest){
-        List<Book> bookList = bookRepository.findAll();
         Book book = bookRepository.findByBookId(bookId);
-        if(bookList.isEmpty()){
+        if(book == null){
             Book temp = bookRequest.convertToBook(bookId);
             bookRepository.save(temp);
         }else{
@@ -23,6 +22,17 @@ public class BookService {
             Book temp = bookRequest.convertToBook(sid, bookId);
             bookRepository.save(temp);
         }
+
+//        List<Book> bookList = bookRepository.findAll();
+//        Book book = bookRepository.findByBookId(bookId);
+//        if(bookList.isEmpty()){
+//            Book temp = bookRequest.convertToBook(bookId);
+//            bookRepository.save(temp);
+//        }else{
+//            Long sid = book.getSid();
+//            Book temp = bookRequest.convertToBook(sid, bookId);
+//            bookRepository.save(temp);
+//        }
     }
 
 }

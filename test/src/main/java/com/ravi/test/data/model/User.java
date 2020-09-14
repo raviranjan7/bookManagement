@@ -1,6 +1,4 @@
 package com.ravi.test.data.model;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import javax.persistence.*;
 
@@ -29,6 +27,14 @@ public class User {
     private String password;
     @Column(name = "type", nullable = false)
     private String type;
+
+    public Long getSid() {
+        return sid;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     public User(String userId, String name, String email, String password, String type) {
         this.userId = userId;

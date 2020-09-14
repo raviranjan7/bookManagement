@@ -13,9 +13,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     public void updateUser(String userId, UserRequest userRequest){
-        List<User> userList = userRepository.findAll();
         User user = userRepository.findByUserId(userId);
-        if(userList.isEmpty()) {
+        if(user == null){
             User temp = userRequest.convertToUser(userId);
             userRepository.save(temp);
         }else{
@@ -23,5 +22,24 @@ public class UserService {
             User temp = userRequest.convertToUser(sid, userId);
             userRepository.save(temp);
         }
+
+//        List<User> userList = userRepository.findAll();
+//
+//        if(userList.isEmpty()) {
+//            User temp = userRequest.convertToUser(userId);
+//            userRepository.save(temp);
+//        }else{
+//            User user = userRepository.findByUserId(userId);
+//            Long sid = user.getSid();
+//            User temp = userRequest.convertToUser(sid, userId);
+//            userRepository.save(temp);
+//        }
+    }
+    public int loginUser(String email, String password){
+        User user = userRepository.findByEmail(email);
+        if(user!= null){
+            if(user.getPassword().equals(password)) return 1;
+        }
+        return 0;
     }
 }

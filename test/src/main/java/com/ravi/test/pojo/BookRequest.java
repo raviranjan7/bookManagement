@@ -19,9 +19,13 @@ public class BookRequest {
     private String category;
     private long quantity;
     private String availabilityStatus;
+
+
     public Book convertToBook(Long sid, String bookId) {
         return new Book(sid, bookId, this.name, this.category, this.quantity, this.availabilityStatus);
     }
+
+
     public Book convertToBook(String bookId) {
         return new Book(bookId, this.name, this.category, this.quantity, this.availabilityStatus);
     }
