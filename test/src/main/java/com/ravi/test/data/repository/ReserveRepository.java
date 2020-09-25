@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ReserveRepository extends JpaRepository<Reserve, Long> {
     Reserve findByUserId(String userId);
+    List<Reserve> findAllByBookId(String bookId);
     List<Reserve> findAll();
     List<Reserve> findAllByUserId(String userId);
     Reserve save(Reserve reserve);

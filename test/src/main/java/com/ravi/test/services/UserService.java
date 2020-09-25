@@ -35,11 +35,17 @@ public class UserService {
 //            userRepository.save(temp);
 //        }
     }
-    public int loginUser(String email, String password){
+    public String loginUser(String email, String password){
         User user = userRepository.findByEmail(email);
+        String type = "";
         if(user!= null){
-            if(user.getPassword().equals(password)) return 1;
+            if(user.getPassword().equals(password)) type = user.getType();
         }
-        return 0;
+        return type;
+    }
+
+    public User getLoginUser(String email){
+        User user = userRepository.findByEmail(email);
+        return user;
     }
 }

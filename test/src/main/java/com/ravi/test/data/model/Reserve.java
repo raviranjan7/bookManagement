@@ -31,5 +31,19 @@ public class Reserve {
         this.reserveTime = reserveTime;
     }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
+    public void setReserveTime(Long reserveTime) {
+        this.reserveTime = reserveTime;
+    }
+
+    public Long getReserveTime() {
+        return reserveTime;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
 }

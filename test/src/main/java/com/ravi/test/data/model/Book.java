@@ -33,6 +33,10 @@ public class Book {
         this.quantity = quantity;
     }
 
+    public void setAvailabilityStatus(String availabilityStatus) {
+        this.availabilityStatus = availabilityStatus;
+    }
+
     public Long getQuantity() {
         return quantity;
     }

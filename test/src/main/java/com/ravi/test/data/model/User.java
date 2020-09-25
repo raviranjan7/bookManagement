@@ -23,6 +23,17 @@ public class User {
     private String name;
     @Column(name = "email", nullable = false)
     private String email;
+
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "type", nullable = false)

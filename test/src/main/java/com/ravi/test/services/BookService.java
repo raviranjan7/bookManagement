@@ -12,27 +12,20 @@ import java.util.List;
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
-    public void updateBook(String bookId, BookRequest bookRequest){
+
+    public void updateBook(String bookId, BookRequest bookRequest) {
         Book book = bookRepository.findByBookId(bookId);
-        if(book == null){
+        if (book == null) {
             Book temp = bookRequest.convertToBook(bookId);
             bookRepository.save(temp);
-        }else{
+        } else {
             Long sid = book.getSid();
             Book temp = bookRequest.convertToBook(sid, bookId);
             bookRepository.save(temp);
         }
-
-//        List<Book> bookList = bookRepository.findAll();
-//        Book book = bookRepository.findByBookId(bookId);
-//        if(bookList.isEmpty()){
-//            Book temp = bookRequest.convertToBook(bookId);
-//            bookRepository.save(temp);
-//        }else{
-//            Long sid = book.getSid();
-//            Book temp = bookRequest.convertToBook(sid, bookId);
-//            bookRepository.save(temp);
-//        }
     }
-
+    //To get the list of all books
+    public List<Book> getAllBooks () {
+        return bookRepository.findAll();
+    }
 }
