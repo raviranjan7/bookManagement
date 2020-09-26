@@ -23,4 +23,10 @@ public class BookController {
     public List<Book> getAllBooks(){
         return bookService.getAllBooks();
     }
+
+    //ye baad me kiya hua hai.
+    @GetMapping(value = "/book/{keyword}")
+    public List<Book> search(@PathVariable String keyword){
+        return bookService.getAllBooksByKeyword(keyword);
+    }
 }

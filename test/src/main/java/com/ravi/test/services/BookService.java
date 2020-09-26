@@ -28,4 +28,8 @@ public class BookService {
     public List<Book> getAllBooks () {
         return bookRepository.findAll();
     }
+    //ye baad me kiya hua hai
+    public List<Book> getAllBooksByKeyword(String keyword){
+        return bookRepository.search(keyword);
+    }
 }
