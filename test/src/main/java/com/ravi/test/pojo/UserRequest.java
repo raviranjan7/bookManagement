@@ -21,7 +21,16 @@ public class UserRequest {
     private String type;
 
 
-    public User convertToUser(Long sid, String userId) {
+    public UserRequest(String name, String email, String password, String type) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.type = type;
+	}
+
+
+	public User convertToUser(Long sid, String userId) {
         return new User(sid, userId, this.name, this.email, this.password, this.type);
     }
 

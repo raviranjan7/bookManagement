@@ -35,14 +35,14 @@ public class UserService {
 //            userRepository.save(temp);
 //        }
     }
-    public String loginUser(String email, String password){
-        User user = userRepository.findByEmail(email);
-        String type = "";
-        if(user!= null){
-            if(user.getPassword().equals(password)) type = user.getType();
-        }
-        return type;
-    }
+//    public String loginUser(String email, String password){
+//        User user = userRepository.findByEmail(email);
+//        String type = "";
+//        if(user!= null){
+//            if(user.getPassword().equals(password)) type = user.getType();
+//        }
+//        return type;
+//    }
 
     public User getLoginUser(String email){
         User user = userRepository.findByEmail(email);

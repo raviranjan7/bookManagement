@@ -2,13 +2,14 @@ package com.ravi.test.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.ravi.test.utilities.BaseController;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ravi.test.data.model.Book;
-import com.ravi.test.pojo.BookRequest;
-import com.ravi.test.services.BookService;
+import com.ravi.test.data.model.User;
+import com.ravi.test.pojo.UserRequest;
+import com.ravi.test.services.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -25,33 +26,35 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @Slf4j
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = BookController.class)
-public class BookControllerTest extends BaseController{
+@WebMvcTest(value = UserController.class)
+public class UserControllerTest extends BaseController{
 
   @Autowired
   private MockMvc mockMvc;
 
-  private List<Book> bookList;
+  private List<User> userList;
 
   @MockBean
-  private BookService bookService;
+  private UserService userService;
 
-  private BookRequest bookRequest;
+  private UserRequest userRequest;
 
   private String jsonRequest;
+  private User user;
 
   @Before
   public void setup() throws Exception {
-    this.bookRequest = new BookRequest("book1","books",1,"yes");
-    this.bookList = new ArrayList<>();
-    jsonRequest = new ObjectMapper().writeValueAsString(bookRequest);
-    Mockito.doNothing().when(bookService).updateBook("book1", bookRequest);
+    this.userRequest = new UserRequest("user1","user1@gmail.com","user1password","user");
+    this.user = new User("user1","user1","user1@gmail.com","user1password","user");
+    this.userList = new ArrayList<>();
+    jsonRequest = new ObjectMapper().writeValueAsString(userRequest);
+    Mockito.doNothing().when(userService).updateUser("user1", userRequest);
   }
 
   @Test
   public void testHappyPathforPutApi() throws Exception {
     mockMvc.perform(
-        post("/book/book1")
+        put("/user/user1")
         .contentType(MediaType.APPLICATION_JSON)
         .content(jsonRequest))
         .andExpect(status().isOk());
@@ -60,7 +63,7 @@ public class BookControllerTest extends BaseController{
   @Test
   public void testInvalidBody() throws Exception {
     mockMvc.perform(
-        post("/book/book1")
+            put("/user/user1")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonRequest))
         .andExpect(status().isBadRequest());
@@ -68,14 +71,14 @@ public class BookControllerTest extends BaseController{
 
   @Test
   public void testHappyPathforGet() throws Exception {
-    Mockito.when(bookService.getAllBooks()).thenReturn(this.bookList);
-    mockMvc.perform(get("/book").contentType(MediaType.APPLICATION_JSON))
+    Mockito.when(userService.getLoginUser("user1@gmail.com")).thenReturn(this.user);
+    mockMvc.perform(get("/login/user1@gmail.com").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
 
   @Test
   public void testInvalidURLForGetRequest() throws Exception {
-    mockMvc.perform(get("/wrongUrl").contentType(MediaType.APPLICATION_JSON))
+    mockMvc.perform(get("/login/wrongemail").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
 

@@ -18,7 +18,15 @@ public class BookRequest {
     private String name;
     private String category;
     private long quantity;
-    private String availabilityStatus;
+    public BookRequest(String name, String category, long quantity, String availabilityStatus) {
+		super();
+		this.name = name;
+		this.category = category;
+		this.quantity = quantity;
+		this.availabilityStatus = availabilityStatus;
+	}
+
+	private String availabilityStatus;
 
 
     public Book convertToBook(Long sid, String bookId) {
