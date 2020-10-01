@@ -19,9 +19,6 @@ public class UserController {
                            @RequestBody UserRequest userRequest){
         userService.updateUser(userId, userRequest);
     }
-//
-//    @Autowired
-//    private UserService userService1;
 
     ////ye baad me kiya hua hai.
     @GetMapping(value = "/login/{email}")

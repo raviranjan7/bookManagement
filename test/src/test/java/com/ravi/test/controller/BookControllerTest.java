@@ -62,7 +62,7 @@ public class BookControllerTest extends BaseController{
     mockMvc.perform(
         post("/book/book1")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonRequest))
+            .content("jsonRequest"))
         .andExpect(status().isBadRequest());
   }
 

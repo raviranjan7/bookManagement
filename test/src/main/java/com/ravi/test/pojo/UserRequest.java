@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 @Slf4j
 @NoArgsConstructor
-@AllArgsConstructor
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserRequest {
     private String name;

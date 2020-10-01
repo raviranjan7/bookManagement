@@ -22,7 +22,7 @@ public class ReserveService {
     private UserRepository userRepository;
     @Autowired
     private BookRepository bookRepository;
-    public int updateReserve(String userId, String bookId){
+    public void updateReserve(String userId, String bookId){
         User user = userRepository.findByUserId(userId);
         Book book = bookRepository.findByBookId(bookId);
         //check if bookId and userId exists in the db or not.
@@ -46,7 +46,6 @@ public class ReserveService {
                         reserve.setReserveTime(reserveTime);
                         reserve.setUserId(userId);
                         reserveRepository.save(reserve);
-                        return 1;
                     }
                 }
                 if(book.getQuantity()>0){
@@ -57,14 +56,14 @@ public class ReserveService {
                     Reserve temp= new Reserve(userId, bookId, reserveTime);
                     reserveRepository.save(temp);
                     //immediately need to reduce quantity. need fn to call bookController(by code not controller) using method resttemplate.
-                    return 1;
+
                 }
             }
         }
         //then reserve if all conditions true or else return an error message.
         //return response if any conditons fail(500 here)
         //Reserve temp = reserveRequest.convertToReserve(userId);
-        return 0;
+
     }
 
     public List<Book> getReservedBooks(String userId){

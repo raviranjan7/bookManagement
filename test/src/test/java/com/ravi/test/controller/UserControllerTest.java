@@ -33,14 +33,14 @@ public class UserControllerTest extends BaseController{
   private MockMvc mockMvc;
 
   private List<User> userList;
-
+  private User user;
   @MockBean
   private UserService userService;
 
   private UserRequest userRequest;
 
   private String jsonRequest;
-  private User user;
+
 
   @Before
   public void setup() throws Exception {
@@ -65,7 +65,7 @@ public class UserControllerTest extends BaseController{
     mockMvc.perform(
             put("/user/user1")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonRequest))
+            .content("jsonRequest"))
         .andExpect(status().isBadRequest());
   }
 
@@ -78,7 +78,7 @@ public class UserControllerTest extends BaseController{
 
   @Test
   public void testInvalidURLForGetRequest() throws Exception {
-    mockMvc.perform(get("/login/wrongemail").contentType(MediaType.APPLICATION_JSON))
+    mockMvc.perform(get("/login/email/wronguser1@gmail.com").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
 

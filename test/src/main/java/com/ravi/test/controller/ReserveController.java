@@ -17,12 +17,9 @@ public class ReserveController {
     @Autowired
     private ReserveService reserveService;
     @PostMapping(value = "/reserve/book/{bookId}/user/{userId}", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity updateReserve(@PathVariable String userId, @PathVariable String bookId){
-        int res = 0;
-        res = reserveService.updateReserve(userId, bookId);
+    public void updateReserve(@PathVariable String userId, @PathVariable String bookId){
+        reserveService.updateReserve(userId, bookId);
         //return based on conditions
-        if(res == 1) return new ResponseEntity<>(HttpStatus.OK);
-        else return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @GetMapping(value = "/reserve/{userId}")
     public List<Book> getReservedBooks(@PathVariable String userId){
