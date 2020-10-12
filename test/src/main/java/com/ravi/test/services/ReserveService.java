@@ -22,18 +22,17 @@ public class ReserveService {
     private UserRepository userRepository;
     @Autowired
     private BookRepository bookRepository;
-    public void updateReserve(String userId, String bookId){
+    public int updateReserve(String userId, String bookId){
         User user = userRepository.findByUserId(userId);
         Book book = bookRepository.findByBookId(bookId);
         //check if bookId and userId exists in the db or not.
         if(user!= null && book!= null){
             List<Reserve> reserveList = reserveRepository.findAllByUserId(userId);
-            //what if multiple with the same userId, can get count<=3 here only.
-            //Also, check if the quantity is grater than 1.
-//            int sameReserve = 0;
-//            for(Reserve reserve: reserveList){
-//                if(reserve.getBookId() == bookId) sameReserve = 1;
-//            }
+
+            for(Reserve reserve: reserveList){
+                if(reserve.getBookId().equals(bookId)) return 0;
+            }
+
             if(reserveList.size()<3){
 
                 Calendar calendar = Calendar.getInstance();
@@ -46,6 +45,7 @@ public class ReserveService {
                         reserve.setReserveTime(reserveTime);
                         reserve.setUserId(userId);
                         reserveRepository.save(reserve);
+                        return 1;
                     }
                 }
                 if(book.getQuantity()>0){
@@ -55,6 +55,7 @@ public class ReserveService {
                     bookRepository.save(book);
                     Reserve temp= new Reserve(userId, bookId, reserveTime);
                     reserveRepository.save(temp);
+                    return 1;
                     //immediately need to reduce quantity. need fn to call bookController(by code not controller) using method resttemplate.
 
                 }
@@ -63,7 +64,7 @@ public class ReserveService {
         //then reserve if all conditions true or else return an error message.
         //return response if any conditons fail(500 here)
         //Reserve temp = reserveRequest.convertToReserve(userId);
-
+        return 0;
     }
 
     public List<Book> getReservedBooks(String userId){

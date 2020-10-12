@@ -46,7 +46,7 @@ public class ReserveControllerTest extends BaseController{
     @Before
     public void setup() throws Exception {
         this.bookList = new ArrayList<>();
-        Mockito.doNothing().when(reserveService).updateReserve("user1", "book1");
+        Mockito.doReturn(1).when(reserveService).updateReserve("user1", "book1");
     }
 
     @Test
